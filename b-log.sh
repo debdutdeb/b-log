@@ -18,7 +18,8 @@
 #set -o pipefail # prevents errors in a pipeline from being masked
 
 B_LOG_APPNAME="b-log"
-B_LOG_VERSION=1.2.0
+# D.C
+B_LOG_VERSION=1.3.0
 
 # --- global variables ----------------------------------------------
 # log levels
@@ -28,8 +29,9 @@ readonly LOG_LEVEL_ERROR=200    # error conditions
 readonly LOG_LEVEL_WARN=300     # warning conditions
 readonly LOG_LEVEL_NOTICE=400   # Nothing serious, but notably nevertheless.
 readonly LOG_LEVEL_INFO=500     # informational
-readonly LOG_LEVEL_DEBUG=600    # debug-level messages
-readonly LOG_LEVEL_TRACE=700    # see stack traces
+readonly LOG_LEVEL_SUCCESS=600
+readonly LOG_LEVEL_DEBUG=700    # debug-level messages
+readonly LOG_LEVEL_TRACE=800    # see stack traces
 readonly LOG_LEVEL_ALL=-1       # all enabled
 
 #############################
@@ -60,6 +62,7 @@ LOG_LEVELS=(
     "${LOG_LEVEL_WARN}"   "WARN"   "${B_LOG_DEFAULT_TEMPLATE}" "\e[1;33m" "\e[0m"
     "${LOG_LEVEL_NOTICE}" "NOTICE" "${B_LOG_DEFAULT_TEMPLATE}" "\e[1;32m" "\e[0m"
     "${LOG_LEVEL_INFO}"   "INFO"   "${B_LOG_DEFAULT_TEMPLATE}" "\e[37m" "\e[0m"
+    "${LOG_LEVEL_SUCCESS}" "SUCCESS" "${B_LOG_DEFAULT_TEMPLATE}" "\e[1;32m" "\e[0m"
     "${LOG_LEVEL_DEBUG}"  "DEBUG"  "${B_LOG_DEFAULT_TEMPLATE}" "\e[1;34m" "\e[0m"
     "${LOG_LEVEL_TRACE}"  "TRACE"  "${B_LOG_DEFAULT_TEMPLATE}" "\e[94m" "\e[0m"
 )
@@ -365,6 +368,7 @@ function LOG_LEVEL_ERROR()  { B_LOG --log-level ${LOG_LEVEL_ERROR} "$@"; }
 function LOG_LEVEL_WARN()   { B_LOG --log-level ${LOG_LEVEL_WARN} "$@"; }
 function LOG_LEVEL_NOTICE() { B_LOG --log-level ${LOG_LEVEL_NOTICE} "$@"; }
 function LOG_LEVEL_INFO()   { B_LOG --log-level ${LOG_LEVEL_INFO} "$@"; }
+function LOG_LEVEL_SUCCESS() { B_LOG --log-level ${LOG_LEVEL_SUCCESS} "$@"; }
 function LOG_LEVEL_DEBUG()  { B_LOG --log-level ${LOG_LEVEL_DEBUG} "$@"; }
 function LOG_LEVEL_TRACE()  { B_LOG --log-level ${LOG_LEVEL_TRACE} "$@"; }
 function LOG_LEVEL_ALL()    { B_LOG --log-level ${LOG_LEVEL_ALL} "$@"; }
@@ -377,5 +381,6 @@ function ERROR()    { B_LOG_print_message ${LOG_LEVEL_ERROR} "$@"; }
 function WARN()     { B_LOG_print_message ${LOG_LEVEL_WARN} "$@"; }
 function NOTICE()   { B_LOG_print_message ${LOG_LEVEL_NOTICE} "$@"; }
 function INFO()     { B_LOG_print_message ${LOG_LEVEL_INFO} "$@"; }
+function SUCCESS()   { B_LOG_print_message ${LOG_LEVEL_SUCCESS} "$@"; }
 function DEBUG()    { B_LOG_print_message ${LOG_LEVEL_DEBUG} "$@"; }
 function TRACE()    { B_LOG_print_message ${LOG_LEVEL_TRACE} "$@"; }
